@@ -18,6 +18,7 @@ The Yelp pipeline is desgined to extract data from the publicly avaiable [Yelp d
   - `dbt_project.yml`: Main configuration file for DBT project.
   - `models/`: DBT models for data transformation.
     - `gldn/`: Contains scripts for creating analytical (gold) tables in Redshift.
+    - `sources.yml`: Contains the configuration for the source tables in the staging layer.
   - `packages.yml`: Defines DBT dependencies.
 
 
