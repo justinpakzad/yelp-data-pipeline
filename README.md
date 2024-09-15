@@ -1,5 +1,5 @@
 # Yelp Data Pipeline
-The Yelp pipeline is desgined to extract data from the publicly avaiable [Yelp dataset](https://www.yelp.com/dataset), load it into an S3 bucket, and perform various transformations with PySpark (e.g., flattening JSON files, etc.). It then utilizes dbt alongside RedShift for additional transformations, data modeling, and testing to ensure data integrity.
+The Yelp pipeline is desgined to extract data from the publicly avaiable [Yelp dataset](https://www.yelp.com/dataset), load it into an S3 bucket, and perform various transformations with PySpark (e.g., flattening JSON files, etc.). It then utilizes dbt alongside Redshift for additional transformations, data modeling, and testing to ensure data integrity.
 
 ## Data Flow Diagram
 ![Alt text](images/dataflow_diagram.png)
@@ -53,12 +53,12 @@ REDSHIFT_CLUSTER_IDENTIFIER=your_redshift_cluster_id
 ```
 python extract_and_load_s3.py
 ```
-2. After loading the data into S3, proceed by running the `aws_glue_job.py` script located in the src/pipeline/ directory. This script configures and executes the AWS Glue job to transform the data.
-3. After the data has been transformed and the parquet files have been loaded into s3, proceed to run the `execute_staging_queries.py` to create the staging tables in RedShift. Please remember to update the s3 URI and you IAMROLE credentials in the queries.
+2. Once the data is loaded into S3, proceed by running the `aws_glue_job.py` script located in the src/pipeline/ directory. This script configures and executes the AWS Glue job to transform the data.
+3. After the data has been transformed and the parquet files have been loaded into s3, proceed to run the `execute_staging_queries.py` to create the staging tables in Redshift. Please remember to update the s3 URI and the IAMROLE credentials located in the queries.
 ```
 python execute_staging_queries.py
 ```
-4. Once the staging tables are loaded into RedShift, dbt will handle the creation of the data models and golden tables. It will also run various tests to verify the data's integrity. Execute the following commands to proceed:
+4. Finally, once the staging tables are successfully loaded into Redshift, dbt will handle the creation of the data models and golden tables. It will also run various tests to verify the data's integrity. Execute the following commands to proceed:
 ```
 dbt run
 dbt test

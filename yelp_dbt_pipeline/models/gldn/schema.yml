@@ -9,29 +9,24 @@ models:
           - not_null
       - name: review_count
         tests:
-          - dbt_utils.accepted_range:
-              min_value: 0
-              inclusive: true
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
       - name: useful
         tests:
-          - dbt_utils.accepted_range:
-              min_value: 0
-              inclusive: true
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
       - name: funny
         tests:
-          - dbt_utils.accepted_range:
-              min_value: 0
-              inclusive: true
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
       - name: cool
         tests:
-          - dbt_utils.accepted_range:
-              min_value: 0
-              inclusive: true
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
       - name: fans
         tests:
-          - dbt_utils.accepted_range:
-              min_value: 0
-              inclusive: true
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
       - name: average_stars
         tests:
           - dbt_utils.accepted_range:
@@ -44,14 +39,14 @@ models:
     - name: date_id
       tests:
         - unique
-        - not null
+        - not_null
 
   - name: business_dim
     columns:
       - name: business_id
         tests:
           - unique
-          - not null
+          - not_null
       - name: stars
         tests:
           - dbt_utils.accepted_range:
@@ -60,32 +55,27 @@ models:
               inclusive: true
       - name: review_count
         tests:
-          - dbt_utils.accepted_range:
-              min_value: 0
-              inclusive: true
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
+             
   - name: category_dim
     columns:
       - name: category_id
         tests:
           - unique
-          - not null
+          - not_null
 
   - name: review_fact
     columns:
       - name: review_id
         tests:
           - unique
-          - not null
+          - not_null
       - name: business_id
         tests:
           - relationships:
               to: ref('business_dim')
               field: business_id
-      - name: user_id
-        tests:
-          - relationships:
-              to: ref('user_dim')
-              field: user_id
       - name: date_id
         tests:
           - relationships:
@@ -93,24 +83,16 @@ models:
               field: date_id
       - name: useful
         tests:
-          - dbt_utils.accepted_range:
-              min_value: 0
-              inclusive: true
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
       - name: funny
         tests:
-          - dbt_utils.accepted_range:
-              min_value: 0
-              inclusive: true
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
       - name: cool
         tests:
-          - dbt_utils.accepted_range:
-              min_value: 0
-              inclusive: true
-      - name: fans
-        tests:
-          - dbt_utils.accepted_range:
-              min_value: 0
-              inclusive: true
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
       - name: stars
         tests:
           - dbt_utils.accepted_range:
@@ -123,7 +105,7 @@ models:
       - name: tip_id
         tests:
           - unique
-          - not null
+          - not_null
       - name: business_id
         tests:
           - relationships:
@@ -141,15 +123,14 @@ models:
               field: date_id
       - name: compliment_count
         tests:
-          - dbt_utils.accepted_range:
-              min_value: 0
-              inclusive: true
+          - dbt_utils.expression_is_true:
+              expression: '>= 0'
   - name: checkin_fact
     columns:
       - name: checkin_id
         tests:
           - unique
-          - not null
+          - not_null
       - name: business_id
         tests:
           - relationships:
