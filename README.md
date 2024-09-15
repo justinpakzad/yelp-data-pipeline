@@ -54,7 +54,7 @@ REDSHIFT_CLUSTER_IDENTIFIER=your_redshift_cluster_id
 python extract_and_load_s3.py
 ```
 2. Once the data is loaded into S3, proceed by running the `aws_glue_job.py` script located in the src/pipeline/ directory. This script configures and executes the AWS Glue job to transform the data.
-3. After the data has been transformed and the parquet files have been loaded into s3, proceed to run the `execute_staging_queries.py` to create the staging tables in Redshift. Please remember to update the s3 URI and the IAMROLE credentials located in the queries.
+3. After the data has been transformed and the parquet files have been loaded into s3, proceed to run the `execute_staging_queries.py` to create the staging tables in Redshift:
 ```
 python execute_staging_queries.py
 ```
