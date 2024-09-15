@@ -1,0 +1,11 @@
+sources:
+  - name: stg
+    schema: stg 
+    tables:
+      - name: business
+      - name: business_category
+      - name: checkin
+      - name: review
+      - name: tip
+      - name: user
+      

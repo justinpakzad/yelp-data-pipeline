@@ -1,0 +1,176 @@
+version: 2
+
+models:
+  - name: user_dim
+    columns:
+      - name: user_id
+        tests:
+          - unique
+          - not_null
+      - name: review_count
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+      - name: useful
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+      - name: funny
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+      - name: cool
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+      - name: fans
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+      - name: average_stars
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 1
+              max_value: 5
+              inclusive: true
+
+  - name: date_dim
+    columns:
+    - name: date_id
+      tests:
+        - unique
+        - not null
+
+  - name: business_dim
+    columns:
+      - name: business_id
+        tests:
+          - unique
+          - not null
+      - name: stars
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 1
+              max_value: 5
+              inclusive: true
+      - name: review_count
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+  - name: category_dim
+    columns:
+      - name: category_id
+        tests:
+          - unique
+          - not null
+
+  - name: review_fact
+    columns:
+      - name: review_id
+        tests:
+          - unique
+          - not null
+      - name: business_id
+        tests:
+          - relationships:
+              to: ref('business_dim')
+              field: business_id
+      - name: user_id
+        tests:
+          - relationships:
+              to: ref('user_dim')
+              field: user_id
+      - name: date_id
+        tests:
+          - relationships:
+              to: ref('date_dim')
+              field: date_id
+      - name: useful
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+      - name: funny
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+      - name: cool
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+      - name: fans
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+      - name: stars
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 1
+              max_value: 5
+              inclusive: true
+
+  - name: tip_fact
+    columns:
+      - name: tip_id
+        tests:
+          - unique
+          - not null
+      - name: business_id
+        tests:
+          - relationships:
+              to: ref('business_dim')
+              field: business_id
+      - name: user_id
+        tests:
+          - relationships:
+              to: ref('user_dim')
+              field: user_id
+      - name: date_id
+        tests:
+          - relationships:
+              to: ref('date_dim')
+              field: date_id
+      - name: compliment_count
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+  - name: checkin_fact
+    columns:
+      - name: checkin_id
+        tests:
+          - unique
+          - not null
+      - name: business_id
+        tests:
+          - relationships:
+              to: ref('business_dim')
+              field: business_id
+      - name: date_id
+        tests:
+          - relationships:
+              to: ref('date_dim')
+              field: date_id
+
+  - name: business_category
+    columns:
+      - name: business_id
+        tests:
+          - relationships:
+              to: ref('business_dim')
+              field: business_id
+      - name: category_id
+        tests:
+          - relationships:
+              to: ref('category_dim')
+              field: category_id
+
