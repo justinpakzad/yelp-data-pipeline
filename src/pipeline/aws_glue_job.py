@@ -246,6 +246,15 @@ def process_reviews_and_tips(df: DataFrame) -> DataFrame:
 def read_dynamic_and_convert_df(
     glueContext: GlueContext, database: str, table_name: str
 ) -> DataFrame:
+    """
+    Reads data from the specified database and table using AWS Glue and converts it to a DataFrame.
+    Args:
+        glueContext (GlueContext): The GlueContext to use for reading from the catalog.
+        database (str): Name of the database where the table is located.
+        table_name (str): Name of the table to read.
+    Returns:
+        DataFrame
+    """
     try:
         dynamic_frame = glueContext.create_dynamic_frame.from_catalog(
             database=database, table_name=table_name
@@ -262,6 +271,14 @@ def read_dynamic_and_convert_df(
 def process_all_and_write(
     glueContext: GlueContext, df: DataFrame, process_function, output_path: str
 ) -> None:
+    """
+    Processes the DataFrame using the specified function and writes the result to the given S3 path.
+    Args:
+        glueContext (GlueContext): The GlueContext to use for operations.
+        df (DataFrame): DataFrame to process.
+        process_function (function): The function to apply to the DataFrame for processing.
+        output_path (str): S3 path where the processed DataFrame will be written.
+    """
     try:
         processed_df = process_function(df)
         # Expensive operation and not optimal
