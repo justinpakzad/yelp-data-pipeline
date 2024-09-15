@@ -264,7 +264,8 @@ def process_all_and_write(
 ) -> None:
     try:
         processed_df = process_function(df)
-        # Expensive operation, probably not optimal
+        # Expensive operation and not optimal
+        # The dataset was not massive, so I condensed the output to 1 parquet per json
         processed_df = processed_df.coalesce(1)
         if processed_df and processed_df.count() > 0:
             processed_dyf = DynamicFrame.fromDF(
