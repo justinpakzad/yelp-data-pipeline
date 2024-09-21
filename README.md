@@ -29,8 +29,8 @@ git clone https://github.com/justinpakzad/yelp-etl
 ```
 2. Create a virtual enviornment:
 ```
-pyenv virtualenv 3.10.6 yelp_etl
-pyenv activate yelp_etl
+pyenv virtualenv 3.10.6 yelp_pipeline
+pyenv activate yelp_pipeline
 ```
 3. Install required Python dependencies:
 ```
